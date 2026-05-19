@@ -16,7 +16,8 @@ switch ($accion) {
         $rol      = trim($_POST['rol'] ?? '');
 
         if (!$usuario || !$password || !$rol) {
-            header('Location: /admin/dashboard.php?tab=usuarios&error=faltan_datos');
+            // CORREGIDO: Ruta relativa para evitar 404 en subcarpetas o servidores compartidos
+            header('Location: ../admin/dashboard.php?tab=usuarios&error=faltan_datos');
             exit();
         }
 
@@ -24,7 +25,8 @@ switch ($accion) {
         $check = $conn->prepare("SELECT id_usu FROM usuarios WHERE usuario_usu = ?");
         $check->execute([$usuario]);
         if ($check->fetch()) {
-            header('Location: /admin/dashboard.php?tab=usuarios&error=usuario_existe');
+            // CORREGIDO: Ruta relativa
+            header('Location: ../admin/dashboard.php?tab=usuarios&error=usuario_existe');
             exit();
         }
 
@@ -32,19 +34,26 @@ switch ($accion) {
         $stmt = $conn->prepare("INSERT INTO usuarios (usuario_usu, password_usu, rol) VALUES (?,?,?)");
         $stmt->execute([$usuario, $hash, $rol]);
 
-        header('Location: /admin/dashboard.php?tab=usuarios&msg=usuario_creado');
+        // CORREGIDO: Ruta relativa
+        header('Location: ../admin/dashboard.php?tab=usuarios&msg=usuario_creado');
         exit();
 
     case 'eliminar':
         $id = intval($_GET['id'] ?? 0);
-        if (!$id) { header('Location: /admin/dashboard.php?tab=usuarios'); exit(); }
+        if (!$id) { 
+            // CORREGIDO: Ruta relativa
+            header('Location: ../admin/dashboard.php?tab=usuarios'); 
+            exit(); 
+        }
 
         $stmt = $conn->prepare("DELETE FROM usuarios WHERE id_usu = ? AND usuario_usu != 'admin'");
         $stmt->execute([$id]);
 
-        header('Location: /admin/dashboard.php?tab=usuarios&msg=usuario_eliminado');
+        // CORREGIDO: Ruta relativa
+        header('Location: ../admin/dashboard.php?tab=usuarios&msg=usuario_eliminado');
         exit();
 }
 
-header('Location: /admin/dashboard.php?tab=usuarios');
+// CORREGIDO: Ruta relativa por defecto
+header('Location: ../admin/dashboard.php?tab=usuarios');
 exit();

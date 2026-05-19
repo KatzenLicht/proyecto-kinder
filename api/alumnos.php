@@ -12,21 +12,24 @@ $es_admin = rol_sesion() === 'admin';
 switch ($accion) {
 
     case 'crear':
-        if (!$es_admin) { header('Location: /admin/dashboard.php'); exit(); }
+        // CORREGIDO: Ruta relativa en caso de no ser admin
+        if (!$es_admin) { header('Location: ../admin/dashboard.php'); exit(); }
 
         $nombre    = trim($_POST['nombre_alu']    ?? '');
         $apellidos = trim($_POST['apellidos_alu'] ?? '');
         $id_gpo    = !empty($_POST['id_gpo']) ? intval($_POST['id_gpo']) : null;
 
         if (!$nombre || !$apellidos) {
-            header('Location: /admin/dashboard.php?tab=alumnos&error=faltan_datos');
+            // CORREGIDO: Ruta relativa
+            header('Location: ../admin/dashboard.php?tab=alumnos&error=faltan_datos');
             exit();
         }
 
         $stmt = $conn->prepare("INSERT INTO alumnos (id_gpo, nombre_alu, apellidos_alu) VALUES (?,?,?)");
         $stmt->execute([$id_gpo, $nombre, $apellidos]);
 
-        header('Location: /admin/dashboard.php?tab=alumnos&msg=alumno_creado');
+        // CORREGIDO: Ruta relativa
+        header('Location: ../admin/dashboard.php?tab=alumnos&msg=alumno_creado');
         exit();
 
     case 'asignar':
@@ -34,7 +37,9 @@ switch ($accion) {
         $id_gpo = !empty($_POST['id_gpo']) ? intval($_POST['id_gpo']) : null;
 
         if (!$id_alu) {
-            header('Location: /admin/dashboard.php?tab=alumnos');
+            // CORREGIDO: Se calcula a dónde regresar si falta el ID
+            $fallback = $es_admin ? '../admin/dashboard.php?tab=alumnos' : '../maestra/dashboard.php?tab=alumnos';
+            header('Location: ' . $fallback);
             exit();
         }
 
@@ -43,12 +48,15 @@ switch ($accion) {
             $check = $conn->prepare("SELECT id_gpo FROM grupo WHERE id_gpo = ? AND id_usu = ?");
             $check->execute([$id_gpo, id_sesion()]);
             if (!$check->fetch()) {
-                header('Location: /maestra/dashboard.php?tab=alumnos&error=sin_permiso');
+                // CORREGIDO: Ruta relativa a la carpeta de la maestra
+                header('Location: ../maestra/dashboard.php?tab=alumnos&error=sin_permiso');
                 exit();
             }
-            $redirect = '/maestra/dashboard.php?tab=alumnos&msg=alumno_asignado';
+            // CORREGIDO: Ruta relativa para maestras
+            $redirect = '../maestra/dashboard.php?tab=alumnos&msg=alumno_asignado';
         } else {
-            $redirect = '/admin/dashboard.php?tab=alumnos&msg=alumno_asignado';
+            // CORREGIDO: Ruta relativa para admins
+            $redirect = '../admin/dashboard.php?tab=alumnos&msg=alumno_asignado';
         }
 
         $stmt = $conn->prepare("UPDATE alumnos SET id_gpo = ? WHERE id_alu = ?");
@@ -58,17 +66,22 @@ switch ($accion) {
         exit();
 
     case 'eliminar':
-        if (!$es_admin) { header('Location: /admin/dashboard.php'); exit(); }
+        // CORREGIDO: Ruta relativa
+        if (!$es_admin) { header('Location: ../admin/dashboard.php'); exit(); }
 
         $id = intval($_GET['id'] ?? 0);
-        if (!$id) { header('Location: /admin/dashboard.php?tab=alumnos'); exit(); }
+        // CORREGIDO: Ruta relativa
+        if (!$id) { header('Location: ../admin/dashboard.php?tab=alumnos'); exit(); }
 
         $stmt = $conn->prepare("DELETE FROM alumnos WHERE id_alu = ?");
         $stmt->execute([$id]);
 
-        header('Location: /admin/dashboard.php?tab=alumnos&msg=alumno_eliminado');
+        // CORREGIDO: Ruta relativa
+        header('Location: ../admin/dashboard.php?tab=alumnos&msg=alumno_eliminado');
         exit();
 }
 
-header('Location: /admin/dashboard.php?tab=alumnos');
+// CORREGIDO: Ruta por defecto calculada según el rol
+$default_redirect = $es_admin ? '../admin/dashboard.php?tab=alumnos' : '../maestra/dashboard.php?tab=alumnos';
+header('Location: ' . $default_redirect);
 exit();

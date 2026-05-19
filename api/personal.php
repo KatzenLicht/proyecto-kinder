@@ -17,26 +17,29 @@ switch ($accion) {
         $celular = trim($_POST['cel_per']       ?? '');
 
         if (!$id_usu || !$nombre || !$correo || !$celular) {
-            header('Location: /admin/dashboard.php?tab=personal&error=faltan_datos');
+            header('Location: ../admin/dashboard.php?tab=personal&error=faltan_datos');
             exit();
         }
 
         $stmt = $conn->prepare("INSERT INTO personal (id_usu, maestra_per, correo_per, cel_per) VALUES (?,?,?,?)");
         $stmt->execute([$id_usu, $nombre, $correo, $celular]);
 
-        header('Location: /admin/dashboard.php?tab=personal&msg=personal_creado');
+        header('Location: ../admin/dashboard.php?tab=personal&msg=personal_creado');
         exit();
 
     case 'eliminar':
         $id = intval($_GET['id'] ?? 0);
-        if (!$id) { header('Location: /admin/dashboard.php?tab=personal'); exit(); }
+        if (!$id) { 
+            header('Location: ../admin/dashboard.php?tab=personal'); 
+            exit(); 
+        }
 
         $stmt = $conn->prepare("DELETE FROM personal WHERE id_per = ?");
         $stmt->execute([$id]);
 
-        header('Location: /admin/dashboard.php?tab=personal&msg=personal_eliminado');
+        header('Location: ../admin/dashboard.php?tab=personal&msg=personal_eliminado');
         exit();
 }
 
-header('Location: /admin/dashboard.php?tab=personal');
+header('Location: ../admin/dashboard.php?tab=personal');
 exit();

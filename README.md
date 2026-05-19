@@ -7,7 +7,7 @@ Sistema de gestión escolar para un jardín de niños con roles de Administrador
 
 ## 🌐 Sitio en línea
 
-**URL:** [http://proyecto-kinder.atwebpages.com](http://proyecto-kinder.atwebpages.com)
+**URL:** [http://proyecto-kinder.atwebpages.com/proyectofinal/index.php]
 
 ---
 
@@ -28,7 +28,7 @@ Aplicación web completa que incluye:
 
 | Rol | Usuario de prueba | Contraseña |
 |-----|-------------------|------------|
-| Administrador | `admin` | `admin123` |
+| Administrador | `admin` | `1234` |
 | Docente | Crear desde panel admin | (la que se asigne) |
 | Padre/Tutor | Registro propio | (la que se registre) |
 

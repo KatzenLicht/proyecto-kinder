@@ -1,14 +1,13 @@
 <?php
 // ============================================================
-// registro_exitoso.php
-// Muestra confirmación y dispara EmailJS para notificar
+// registro_exitoso.php - CORREGIDO PARA AWARDSPACE
 // ============================================================
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-// Si no viene de un registro, redirigir
+// Redirección relativa corregida (sin carpetas locales fijas)
 if (!isset($_SESSION['nuevo_padre'])) {
-    header('Location: /kinderProyectoFinal/login.php');
+    header('Location: login.php');
     exit();
 }
 
@@ -17,7 +16,6 @@ $nombre  = $padre['nombre'];
 $correo  = $padre['correo'];
 $usuario = $padre['usuario'];
 
-// Limpiar sesión temporal
 unset($_SESSION['nuevo_padre']);
 ?>
 <!DOCTYPE html>
@@ -28,7 +26,6 @@ unset($_SESSION['nuevo_padre']);
     <title>Registro exitoso — Jardín de Niños UACJ</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <!-- EmailJS -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>emailjs.init("CF7-iYshUSalK5g6T");</script>
 </head>
@@ -40,7 +37,6 @@ unset($_SESSION['nuevo_padre']);
     </div>
 
     <div class="login-wrapper" style="text-align:center">
-
         <div class="login-logo" style="font-size:4rem">✅</div>
         <h1 style="margin:16px 0 8px">¡Registro exitoso!</h1>
         <p style="color:#666;margin-bottom:24px">
@@ -53,11 +49,9 @@ unset($_SESSION['nuevo_padre']);
         <a href="login.php" class="btn-primary" style="display:inline-block">
             Ir al inicio de sesión
         </a>
-
     </div>
 
     <script>
-        // Disparar notificación por EmailJS al cargar la página
         (function() {
             emailjs.send("service_63vbgb6", "template_9ziqeze", {
                 from_name:  "Sistema Jardín UACJ",

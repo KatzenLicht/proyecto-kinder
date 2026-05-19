@@ -291,6 +291,12 @@
         <a href="sitemap.php" style="background:#F0F4F8;color:#3D3D3D;padding:12px 32px;border-radius:50px;font-weight:700;text-decoration:none;display:inline-block">
             Site Map
         </a>
+        <a href="modelo_erp.php" style="background:#F0F4F8;color:#3D3D3D;padding:12px 32px;border-radius:50px;font-weight:700;text-decoration:none;display:inline-block">
+            Modelo ER
+        </a>
+        <a href="api/datos.php" style="background:#F0F4F8;color:#3D3D3D;padding:12px 32px;border-radius:50px;font-weight:700;text-decoration:none;display:inline-block">
+            API Gestión
+        </a>
     </div>
 
 </div>

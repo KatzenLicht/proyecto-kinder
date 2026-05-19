@@ -1,7 +1,6 @@
 <?php
 // ============================================================
-// api/inscribir_hijo.php
-// Inscribe al hijo del padre: crea alumno y lo vincula
+// api/inscribir_hijo.php - CORREGIDO PARA RUTAS RELATIVAS
 // ============================================================
 require_once '../includes/db.php';
 require_once '../includes/auth.php';
@@ -9,7 +8,7 @@ require_once '../includes/auth.php';
 verificar_rol('padre');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /padre/dashboard.php');
+    header('Location: ../padre/dashboard.php');
     exit();
 }
 
@@ -18,7 +17,7 @@ $apellidos = trim($_POST['apellidos_alu'] ?? '');
 $id_usu    = id_sesion();
 
 if (!$nombre || !$apellidos) {
-    header('Location: /padre/dashboard.php?tab=hijo&error=faltan_datos');
+    header('Location: ../padre/dashboard.php?tab=hijo&error=faltan_datos');
     exit();
 }
 
@@ -35,10 +34,11 @@ try {
     // 3. Actualizar sesión
     $_SESSION['id_alu'] = $id_alu;
 
-    header('Location: /padre/dashboard.php?tab=hijo&msg=inscrito');
+    // Redirección relativa corregida usando ../
+    header('Location: ../padre/dashboard.php?tab=hijo&msg=inscrito');
     exit();
 
 } catch (PDOException $e) {
-    header('Location: /padre/dashboard.php?tab=hijo&error=db_error');
+    header('Location: ../padre/dashboard.php?tab=hijo&error=db_error');
     exit();
 }

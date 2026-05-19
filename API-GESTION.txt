@@ -1,0 +1,4 @@
+http://proyecto-kinder.atwebpages.com/proyectofinal/api/datos.php
+http://proyecto-kinder.atwebpages.com/proyectofinal/api/datos.php?tipo=alumnos
+http://proyecto-kinder.atwebpages.com/proyectofinal/api/datos.php?tipo=grupos
+http://proyecto-kinder.atwebpages.com/proyectofinal/api/datos.php?tipo=personal

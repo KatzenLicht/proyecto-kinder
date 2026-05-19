@@ -10,7 +10,7 @@ require_once '../includes/db.php';
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: /registro_padre.php');
+    header('Location: ../registro_padre.php');
     exit();
 }
 
@@ -23,12 +23,12 @@ $correo    = trim($_POST['correo_padre']     ?? '');
 
 // ── Validaciones ────────────────────────────────────────────
 if (!$usuario || !$password || !$confirm || !$nombre || !$telefono || !$correo) {
-    header('Location: /registro_padre.php?error=faltan_datos');
+    header('Location: ../registro_padre.php?error=faltan_datos');
     exit();
 }
 
 if ($password !== $confirm) {
-    header('Location: /registro_padre.php?error=pass_no_coincide');
+    header('Location: ../registro_padre.php?error=pass_no_coincide');
     exit();
 }
 
@@ -36,7 +36,7 @@ if ($password !== $confirm) {
 $check = $conn->prepare("SELECT id_usu FROM usuarios WHERE usuario_usu = ?");
 $check->execute([$usuario]);
 if ($check->fetch()) {
-    header('Location: /registro_padre.php?error=usuario_existe');
+    header('Location: ../registro_padre.php?error=usuario_existe');
     exit();
 }
 
@@ -60,10 +60,10 @@ try {
 
     ob_end_clean();
     // Redirigir a página de éxito que disparará EmailJS
-    header('Location: /registro_exitoso.php');
+    header('Location: ../registro_exitoso.php');
     exit();
 
 } catch (PDOException $e) {
-    header('Location: /registro_padre.php?error=db_error');
+    header('Location: ../registro_padre.php?error=db_error');
     exit();
 }

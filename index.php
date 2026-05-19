@@ -54,7 +54,7 @@ $contacto_error = $_GET['error'] ?? '';
 <section class="hero" id="inicio">
     <div class="hero-content">
         <div class="hero-text">
-            <span class="hero-tag">Ciclo escolar 2024–2025</span>
+            <span class="hero-tag">Ciclo escolar 2025–2026</span>
             <h1 class="hero-title">
                 Bienvenidos al<br>
                 <span>Jardín de Niños UACJ</span>
@@ -65,7 +65,7 @@ $contacto_error = $_GET['error'] ?? '';
                 desarrolla su potencial al máximo.
             </p>
             <div class="hero-btns">
-                <a href="registro_padre.php" class="btn-primary">👨‍👧 Inscribe a tu hijo</a>
+                <a href="registro_padre.php" class="btn-primary">Inscribe a tu hijo</a>
                 <a href="#nosotros" class="btn-secondary">Conoce más</a>
             </div>
         </div>
@@ -306,7 +306,7 @@ $contacto_error = $_GET['error'] ?? '';
                 <h3 class="id-nombre">Julian Lagunes</h3>
                 <p class="id-carrera">Diseño Digital de Medios Interactivos</p>
                 <p class="id-escuela">Universidad Autónoma de Ciudad Juárez</p>
-                <span class="id-badge">Desarrollador Web · 2025</span>
+                <span class="id-badge">Desarrollador Web · 2026</span>
             </div>
 
             <!-- Paleta de colores -->
@@ -539,13 +539,13 @@ function enviarContacto() {
 
 // ── QR Codes automáticos ───────────────────────────────────
 const qrGithub     = 'https://github.com/KatzenLicht/proyecto-kinder';
-const qrAwardspace = 'http://proyecto-kinder.atwebpages.com';
+const qrAwardspace = 'http://proyecto-kinder.atwebpages.com/proyectofinal/index.php';
 const qrSize       = '150x150';
 
 document.getElementById('qr-github').src =
     `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}&data=${encodeURIComponent(qrGithub)}&color=3D3D3D&bgcolor=FAFAFA`;
 
-document.getElementById('qr-awardspace').src =
+document.getElementById('qr-awardspace').src = 
     `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}&data=${encodeURIComponent(qrAwardspace)}&color=3D3D3D&bgcolor=FAFAFA`;
 
 

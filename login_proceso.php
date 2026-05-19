@@ -77,13 +77,13 @@ try {
     ob_end_clean();
     switch ($user['rol']) {
         case 'admin':
-            header('Location: /admin/dashboard.php');
+            header('Location: admin/dashboard.php');
             break;
         case 'docente':
-            header('Location: /maestra/dashboard.php');
+            header('Location: maestra/dashboard.php');
             break;
         case 'padre':
-            header('Location: /padre/dashboard.php');
+            header('Location: padre/dashboard.php');
             break;
         default:
             header('Location: login.php?error=usuario');
